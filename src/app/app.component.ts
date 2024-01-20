@@ -8,8 +8,19 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Demo';
-  data = {}  as any;
-  constructor(private http: HttpClient) {
-    http.get('resource').subscribe(data => this.data = data);
+  data: any;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.http.get('/resource').subscribe(
+      (data) => {
+        this.data = data;
+        console.log(data);
+      },
+      (error) => {
+        console.error('Error fetching data:', error);
+      }
+    );
   }
 }
